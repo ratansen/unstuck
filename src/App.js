@@ -6,22 +6,54 @@ import SignIn from './components/signin/SignIn';
 import Tags from './components/tags/Tags';
 import YourQuestions from './components/yourQuestions/YourQuestions';
 import Ask from './components/ask/Ask';
+import { auth, signInWithGoogle, db } from './firebase/firebase.utils';
 
-function App() {
-  return (
-    <>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path='/ask' component={Ask} />
-          <Route path='/tags' component={Tags} />
-          <Route path='/yourQuestions' component={YourQuestions} />
-          <Route path='/signin' component={SignIn} />
-        </Switch>
-      </Router>
-    </>
-  );
+
+class App extends React.Component {
+  constructor(){
+    super() ;
+    this.state = {
+      currentUser : null 
+    }
+  }
+  unsubscribeFromAuth = null ;
+  componentDidMount(){
+    this.unsubscribeFromAuth = auth.onAuthStateChanged( user=>{
+      this.setState({currentUser : user}) ;
+      console.log("user: ",user.displayName) ;
+
+    });
+    // db.collection('questions').get().then(snapshot=>{
+    //   snapshot.forEach(doc=>{
+    //     const data=doc.data() ;
+    //     questions.push(data)
+    //   })
+    //   console.log(questions[0].question,questions[0].askedBy) ;
+    //   this.setState({questions : questions})
+    // }).catch(error=>console.log(error)) ;
+  }
+  componentWillUnmount(){
+    this.unsubscribeFromAuth() ;
+  }
+
+  render(){
+    return (
+      <>
+        <Router>
+          <Navbar currentUser={this.state.currentUser} />
+          <Switch>
+            <Route path='/' exact component={Home} />
+            <Route path='/ask'   render={(props) => ( <Ask {...props} userName={this.state.currentUser.displayName} /> )} />
+
+            <Route path='/tags' component={Tags} />
+            <Route path='/yourQuestions' component={YourQuestions} />
+            <Route path='/signin' component={SignIn} />
+          </Switch>
+        </Router>
+      </>
+    );
+  }
 }
 
 export default App;
+

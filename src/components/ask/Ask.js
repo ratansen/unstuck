@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
 import { Container, Heading } from '../fragments/mainLayout';
-import './ask.css'
-import Data from '../data' ;
+import './ask.css' ;
+import { Link } from 'react-router-dom';
+// import Data from '../data' ;
+import {db, auth } from '../../firebase/firebase.utils'
 
-var newQuestion ;
+
 function Ask(props) {
     const [text,setText]=useState("")
-    const [questions,addQuestion]=useState(Data) ;
 
     function handleChange(event){
-        newQuestion=event.target.value ;
+        setText(event.target.value) ;
     }
     function handleAdd(event){
-        addQuestion((prev)=>{
-            return [...prev,newQuestion]
-        })
-        // console.log(questions) ;
-        event.preventDefault() ;   
+        db.collection('questionDB').add({questionBody:text, askedBy:props.userName})
+        // event.preventDefault() ;  
+        console.log("usename in ask :",props.userName)
+     
     }
     return (
         <Container>
@@ -25,10 +25,10 @@ function Ask(props) {
             </Heading>
             <div>
                 <form>
-                    <input className='askTitle' name="title" placeholder="Title" />
-                    <hr noshade width="90%" size='1'/>
                     <textarea onChange={handleChange} name="question" placeholder="Write your question" rows="5" />
-                    <button onClick={handleAdd}>Add</button>
+                    <Link to='/'>
+                    <button onClick={handleAdd}>ASK</button>
+                    </Link>
                 </form>
             </div>
         </Container>

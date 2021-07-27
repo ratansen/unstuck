@@ -1,6 +1,7 @@
+
 import React from 'react';
 // import './styles.css'
-
+import {auth} from '../../firebase/firebase.utils'
 import {
     Nav,
     NavBrand,
@@ -11,7 +12,7 @@ import {
     NavBtnLink
 } from './Style';
 
-function Navbar() {
+function Navbar({currentUser}) {
     return (
         <>
             <Nav>
@@ -30,9 +31,15 @@ function Navbar() {
                         Your Questions
                     </NavLink>
                 </NavMenu>
+                { currentUser?
+                
+                <NavBtn>
+                    <NavBtnLink to='/' onClick={()=> auth.signOut()}>Sign Out ({currentUser.displayName})</NavBtnLink>
+                </NavBtn> :
                 <NavBtn>
                     <NavBtnLink to='/signin'>Sign In</NavBtnLink>
                 </NavBtn>
+                }
             </Nav>
         </>
     )
