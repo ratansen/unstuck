@@ -45,12 +45,12 @@ class App extends React.Component {
           <Navbar currentUser={this.state.currentUser} />
           <Switch>
             <Route path='/' exact component={Home} />
+            <Route path='/signin' component={SignIn} />
 
             <Route path={this.state.currentUser ? '/ask' : '/signin'  }  render={(props) => ( <Ask {...props} userName={this.state.currentUser.displayName} /> )} />
             <Route path='/tags' component={Tags} />
             <Route path='/answer' component={Answer} />
             <Route path='/yourQuestions' component={YourQuestions} />
-            <Route path='/signin' component={SignIn} />
           </Switch>
         </Router>
       </>

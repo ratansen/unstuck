@@ -1,0 +1,21 @@
+.questionBody{
+    margin-top: 15px;
+    padding:10px;
+}
+
+.fa {
+    line-height: 2;
+    float:left;
+    font-size: 19px;
+    padding:0 13px 0 7px;
+    margin-top: -3px; 
+    color:rgb(224, 31, 231);  
+}
+.user{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.timestamp{
+    font-size: 0.7rem;
+    font-weight: 100;
+}
