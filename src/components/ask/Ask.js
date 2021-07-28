@@ -2,8 +2,19 @@ import React, {useState} from 'react';
 import { Container, Heading } from '../fragments/mainLayout';
 import './ask.css' ;
 import { Link } from 'react-router-dom';
-// import Data from '../data' ;
+import timeSince from '../date'
 import {db, auth } from '../../firebase/firebase.utils'
+import {username} from '../../App'
+
+function getDay(){
+    var today = new Date();
+    var options={
+        day:"numeric",
+        month:"long"
+    }
+    var day = today.toLocaleDateString("en-US",options);
+    return day;
+}
 
 
 function Ask(props) {
@@ -13,7 +24,8 @@ function Ask(props) {
         setText(event.target.value) ;
     }
     function handleAdd(event){
-        db.collection('questionDB').add({questionBody:text, askedBy:props.userName})
+        db.collection('questionDB').add({questionBody:text, askedBy:props.userName, postedOn: Date.now()})
+        // const id =(Date.now()+Math.ceil(100000*Math.random()).toString()) ;
         // event.preventDefault() ;  
         console.log("usename in ask :",props.userName)
      
