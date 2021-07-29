@@ -1,3 +1,8 @@
+.question-div{
+    border: 2px solid red;
+    padding:5px;
+}
+
 .questionBody{
     margin-top: 15px;
     padding:10px;
@@ -11,6 +16,9 @@
     margin-top: -3px; 
     color:rgb(224, 31, 231);  
 }
+
+
+
 .user{
     font-size: 0.9rem;
     font-weight: bold;
@@ -19,3 +27,44 @@
     font-size: 0.7rem;
     font-weight: 100;
 }
+.answer-div{
+    margin-top: 30px;
+}
+.answerpost-box{
+    width:100%;
+    padding: 10px;
+    outline: none;
+}
+
+.post-button{
+    padding:7px ;
+}
+
+.answer-box{
+    /* border:2px solid rgb(31, 13, 40); */
+    border-radius: 5px 5px ;
+    background-color: rgb(243, 228, 187);
+    padding: 5px;
+    color:#000;
+    margin-top:16px;
+}
+.answer-body{
+    margin-top: 15px;
+    padding:7px;
+}
+.answer-top .fa {
+    line-height: 2;
+    float:left;
+    font-size: 19px;
+    padding:0 13px 0 7px;
+    margin-top: -3px; 
+    color:rgb(31, 68, 33);  
+}
+.user{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.timestamp{
+    font-size: 0.7rem;
+}
+

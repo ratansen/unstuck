@@ -41,7 +41,7 @@ class App extends React.Component {
   render(){
     return (
       <>
-        <Router>
+        <Router >
           <Navbar currentUser={this.state.currentUser} />
           <Switch>
             <Route path='/' exact component={Home} />
@@ -49,7 +49,7 @@ class App extends React.Component {
 
             <Route path={this.state.currentUser ? '/ask' : '/signin'  }  render={(props) => ( <Ask {...props} userName={this.state.currentUser.displayName} /> )} />
             <Route path='/tags' component={Tags} />
-            <Route path='/answer' component={Answer} />
+            <Route path='/answer' render={(props) => ( <Answer {...props} userName={this.state.currentUser.displayName} /> )} />
             <Route path='/yourQuestions' component={YourQuestions} />
           </Switch>
         </Router>

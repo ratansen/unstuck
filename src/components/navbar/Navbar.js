@@ -40,6 +40,7 @@ function Navbar({currentUser}) {
                     <NavBtnLink to='/signin'>Sign In</NavBtnLink>
                 </NavBtn>
                 }
+                
             </Nav>
         </>
     )

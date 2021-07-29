@@ -31,7 +31,7 @@ function Home() {
         questionData.map((item) => {
             return (
 
-                <div class="box">
+                <div class="question-box">
                     <div class="question-top">
 
                         <i class="fa fa-user"></i>
@@ -41,8 +41,10 @@ function Home() {
                     <div class="question-body">
                         <p>{item.questionBody}</p>
                     </div>
-                    <div class="footer">
-                        <Link to={{pathname:'/answer', props:{id:item.id}}}>Answer</Link>
+                    <div class="question-footer">
+                    <div className="view">
+                        <Link style={{textDecoration:"none"}} to={{pathname:'/answer', props:{id:item.id}}}>View</Link>
+                    </div>
                     </div>
                 </div>
 
