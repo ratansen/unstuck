@@ -39,7 +39,7 @@ function Home() {
                         <p class="timestamp">{timeSince(item.postedOn)} ago</p>
                     </div>
                     <div class="question-body">
-                        <p>{item.questionBody}</p>
+                        <p style={{whiteSpace: "pre-wrap"}}>{item.questionBody}</p>
                     </div>
                     <div class="question-footer">
                         <Link style={{ textDecoration: "none" }} to={{ pathname: '/answer', state: { id: item.id } }}>
@@ -49,7 +49,6 @@ function Home() {
                         </Link>
                     </div>
                 </div>
-
             )
         })
 

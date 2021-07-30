@@ -6,6 +6,7 @@
 .questionBody{
     margin-top: 15px;
     padding:10px;
+    white-space: pre-wrap;
 }
 
 .fa {

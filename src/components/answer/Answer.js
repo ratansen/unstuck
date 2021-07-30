@@ -37,7 +37,6 @@ function Answer(props) {
         db.collection("questionDB").doc(qid).collection(qid).add({ answer: ans , answeredBy: props.userName, answeredOn: Date.now()}) ;
         updateAnswerData([])
         fetchAns() ;
-
         event.preventDefault();
     }
 
@@ -73,7 +72,7 @@ function Answer(props) {
                         <p class="timestamp">{timeSince(item.answeredOn)} ago</p>
                     </div>
                     <div class="answer-body">
-                        <p>{item.answer}</p>
+                        <p style={{whiteSpace: "pre-wrap"}}>{item.answer}</p>
                     </div>
                     <div class="footer">
                         
