@@ -1,15 +1,16 @@
-import React from 'react';
+import React from 'react' ;
 import { Container, Heading } from '../fragments/mainLayout';
 
-function Tags() {
-    return (
-
+function Loading(){
+    return(
         <Container>
+            <h2>
             <center>
-            <h2>This feature is currently unavailable</h2>
+                Loading...
             </center>
+            </h2>
         </Container>
     )
 }
 
-export default Tags;
+export default Loading ;

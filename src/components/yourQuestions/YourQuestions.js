@@ -1,13 +1,14 @@
-import React from 'react' ;
+import React from 'react';
 import { Container, Heading } from '../fragments/mainLayout';
 
-function YourQuestions(){
-    return(
+function YourQuestions() {
+    return (
         <Container>
-        <Heading>Your Questions</Heading>
-        <div className="question"></div>
+            <center>
+                <h2>This feature is currently unavailable</h2>
+            </center>
         </Container>
     )
 }
 
-export default YourQuestions ;
+export default YourQuestions;

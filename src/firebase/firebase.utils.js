@@ -1,7 +1,10 @@
 import firebase from 'firebase/app'
 import 'firebase/auth' ;
 import 'firebase/firestore' ;
+import { useHistory } from 'react-router';
 
+
+//https://iitg-unstuck.herokuapp.com/
 var config = {
     apiKey: "AIzaSyDKnjH3hjbdxVfAwhTmbFvK8GFyidZDRNM",
     authDomain: "unstuck-71fc4.firebaseapp.com",
@@ -18,7 +21,10 @@ export const db = firebase.firestore() ;
 
 const provider = new firebase.auth.GoogleAuthProvider() ;
 provider.setCustomParameters({prompt : 'select_account'}) ;
-export const signInWithGoogle = ()=> auth.signInWithPopup(provider) ;
+export const signInWithGoogle = ()=>{
+  auth.signInWithPopup(provider) ;
+
+  }
 
 export default firebase ;
 

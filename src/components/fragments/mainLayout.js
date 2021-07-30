@@ -1,8 +1,16 @@
 import styled from 'styled-components';
 
 export const Container=styled.div`
+    background-color:#fff;
     width:70vw;
-    margin:20px auto;
+    margin:4px auto;
+    padding:10px;
+    border-radius:5px;
+    min-height:95vh;
+    @media screen and (max-width: 768px) {
+    width:95vw;
+  }
+
 `;
 
 export const Heading = styled.div`

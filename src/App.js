@@ -7,7 +7,12 @@ import Tags from './components/tags/Tags';
 import YourQuestions from './components/yourQuestions/YourQuestions';
 import Answer from './components/answer/Answer'
 import Ask from './components/ask/Ask';
+import Footer from './components/footer/Footer'
+import Top from './components/fragments/Top'
 import { auth, signInWithGoogle, db } from './firebase/firebase.utils';
+import NotLoggedIn from './components/error/NotLoggedIn';
+import Loading from './components/error/Loading';
+
 
 var username ='' ;
 class App extends React.Component {
@@ -21,18 +26,13 @@ class App extends React.Component {
   componentDidMount(){
     this.unsubscribeFromAuth = auth.onAuthStateChanged( user=>{
       this.setState({currentUser : user}) ;
-      // console.log("user: ",user.displayName) ;
+      console.log("user: ",user.email) ;
+
 
       username = this.state.currentUser.displayName ;
     });
-    // db.collection('questions').get().then(snapshot=>{
-    //   snapshot.forEach(doc=>{
-    //     const data=doc.data() ;
-    //     questions.push(data)
-    //   })
-    //   console.log(questions[0].question,questions[0].askedBy) ;
-    //   this.setState({questions : questions})
-    // }).catch(error=>console.log(error)) ;
+
+
   }
   componentWillUnmount(){
     this.unsubscribeFromAuth() ;
@@ -47,11 +47,12 @@ class App extends React.Component {
             <Route path='/' exact component={Home} />
             <Route path='/signin' component={SignIn} />
 
-            <Route path={this.state.currentUser ? '/ask' : '/signin'  }  render={(props) => ( <Ask {...props} userName={this.state.currentUser.displayName} /> )} />
+            <Route path='/ask'  render={this.state.currentUser ? (props) => ( <Ask {...props} userName={this.state.currentUser.displayName} /> ) : ()=><NotLoggedIn/>} />
             <Route path='/tags' component={Tags} />
-            <Route path='/answer' render={(props) => ( <Answer {...props} userName={this.state.currentUser.displayName} /> )} />
+            <Route path='/answer' render={this.state.currentUser ?(props) => ( <Answer {...props} userName={this.state.currentUser.displayName} /> ): ()=><NotLoggedIn/>} />
             <Route path='/yourQuestions' component={YourQuestions} />
           </Switch>
+          <Top />
         </Router>
       </>
     );

@@ -9,17 +9,26 @@ import {
     Bars,
     NavMenu,
     NavBtn,
-    NavBtnLink
+    NavBtnLink,
+    NavMenuM
 } from './Style';
+import './navbar.css'
 
 function Navbar({currentUser}) {
+    function toggleBar(){
+        document.querySelector("#bar").style.transform="none";
+    }
+    function collapse(){
+        document.querySelector("#bar").style.transform="translatey(-150%)";
+    }
+
     return (
-        <>
+        <div id="top">
             <Nav>
                 <NavBrand style={{color: 'yellow'}} to='/'>
                     Unstuck
                 </NavBrand>
-                <Bars />
+                <Bars onClick={toggleBar} />
                 <NavMenu>
                     <NavLink to='/ask' activeStyle={{color:'#ff7600'}}>
                         Ask
@@ -31,6 +40,21 @@ function Navbar({currentUser}) {
                         Your Questions
                     </NavLink>
                 </NavMenu>
+                <NavMenuM id="bar">
+                    <div onClick={collapse} className="collapse"><i className="fa fa-times" id="cancel"></i></div>
+                    <NavLink onClick={collapse} to='/ask' activeStyle={{color:'#FFC107'}}>
+                        Ask
+                    </NavLink>
+                    <NavLink onClick={collapse} to='/tags' activeStyle={{color:'#FFC107'}}>
+                        Tags
+                    </NavLink>
+                    <NavLink onClick={collapse} to='/yourQuestions' activeStyle={{color:'#FFC107'}}>
+                        Your Questions
+                    </NavLink>
+                    
+
+                </NavMenuM>
+
                 { currentUser?
                 
                 <NavBtn>
@@ -42,7 +66,7 @@ function Navbar({currentUser}) {
                 }
                 
             </Nav>
-        </>
+        </div>
     )
 }
 export default Navbar;

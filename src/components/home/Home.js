@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Heading } from '../fragments/mainLayout';
-import {Link} from 'react-router-dom' ;
+import { Link } from 'react-router-dom';
 import './home.css';
 import Ask from '../ask/Ask';
 import Data from '../data';
@@ -18,12 +18,12 @@ function Home() {
             const data = doc.data();
             console.log("d.qb: ", data.questionBody)
             updateQuestionData((prev) => {
-                return ([...prev, {id: id, questionBody: data.questionBody, askedBy: data.askedBy, postedOn: data.postedOn }])
+                return ([...prev, { id: id, questionBody: data.questionBody, askedBy: data.askedBy, postedOn: data.postedOn }])
             })
 
         })
     }).catch(error => console.log(error));
-    console.log("questionData",questionData);
+    console.log("questionData", questionData);
     useEffect(() => {
         fetchData();
     }, [])
@@ -42,9 +42,11 @@ function Home() {
                         <p>{item.questionBody}</p>
                     </div>
                     <div class="question-footer">
-                    <div className="view">
-                        <Link style={{textDecoration:"none"}} to={{pathname:'/answer', props:{id:item.id}}}>View</Link>
-                    </div>
+                        <Link style={{ textDecoration: "none" }} to={{ pathname: '/answer', state: { id: item.id } }}>
+                            <div className="view">
+                                View
+                            </div>
+                        </Link>
                     </div>
                 </div>
 

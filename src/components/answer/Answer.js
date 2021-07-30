@@ -3,16 +3,21 @@ import { Container, Heading } from '../fragments/mainLayout';
 import { db } from '../../firebase/firebase.utils';
 import timeSince from '../date' ;
 import './answer.css' ;
+import {useLocation} from 'react-router-dom' ;
 
 
 
 
 function Answer(props) {
-    const qid = props.location.props.id;
+    // window.localStorage.setItem('temp',props.location.props.id)
+    // const qid = window.localStorage.getItem('temp')
+    const location = useLocation()
+    const qid = location.state?.id ;
+    // const qid = props.location.props.id;
     const [ans, setAns] = useState("");
     const [questionData, updateQuestionData] = useState("") ;
 
-    db.collection("questionDB").doc(props.location.props.id)
+    db.collection("questionDB").doc(qid)
         .get()
         .then((snapshot) => {
             updateQuestionData(snapshot.data())

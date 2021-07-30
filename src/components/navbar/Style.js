@@ -23,6 +23,12 @@ export const NavLink = styled(Link)`
   &.active {
     color: #15cdfc;
   }
+  @media screen and (max-width: 768px) {
+    padding:10px;
+    font-size:1.5rem;
+    margin:auto;
+    text-align:center;
+  }
 `;
 
 export const NavBrand = styled(NavLink)`
@@ -49,17 +55,33 @@ export const NavMenu = styled.div`
   align-items: center;
   margin-right: -24px;
   @media screen and (max-width: 768px) {
-    display: block;
-    height:100vh;
+    display: none;
   }
 `;
+
+export const NavMenuM = styled.div`
+  text-align:center;
+  index:999;
+  position:absolute;
+  top:10px;
+  right:10px;
+  background-color:#7952B3;
+  padding:20px;
+  transform: translatey(-150%);
+  transition:all 0.5s;
+  @media screen and (min-width: 768px) {
+    display:none;
+  }
+`;
+
+
 
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
   margin-right: 24px;
   @media screen and (max-width: 768px) {
-    display: none;
+    margin-right:70px;
   }
 `;
 
