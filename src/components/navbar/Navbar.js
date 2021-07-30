@@ -14,6 +14,8 @@ import {
 } from './Style';
 import './navbar.css'
 
+var width = window.matchMedia("(min-width: 768px)") ;
+console.log("width",width.matches) ;
 function Navbar({currentUser}) {
     function toggleBar(){
         document.querySelector("#bar").style.transform="none";
@@ -51,22 +53,23 @@ function Navbar({currentUser}) {
                     <NavLink onClick={collapse} to='/yourQuestions' activeStyle={{color:'#FFC107'}}>
                         Your Questions
                     </NavLink>
-                    
 
                 </NavMenuM>
-
-                { currentUser?
+                
+                { (currentUser)?
                 
                 <NavBtn>
-                    <NavBtnLink to='/' onClick={()=> auth.signOut()}>Sign Out ({currentUser.displayName})</NavBtnLink>
+                    <NavBtnLink to='/' onClick={()=> auth.signOut()}>Sign Out</NavBtnLink>
                 </NavBtn> :
                 <NavBtn>
                     <NavBtnLink to='/signin'>Sign In</NavBtnLink>
                 </NavBtn>
                 }
                 
+                
             </Nav>
         </div>
     )
 }
+
 export default Navbar;

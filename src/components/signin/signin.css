@@ -8,9 +8,14 @@
     font-size: 1.1rem;
     margin:90px auto;
     width:30vw;
-    padding:10px 60px;
+    padding:20px 60px;
     background-color: blueviolet;
     color:#fff;
     vertical-align: middle;
     cursor:pointer;
 }
+@media screen and (max-width: 768px) {
+    .signin{
+        width:70vw;
+    }
+  }

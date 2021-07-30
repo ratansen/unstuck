@@ -34,6 +34,9 @@ export const NavLink = styled(Link)`
 export const NavBrand = styled(NavLink)`
   color:yellow;
   font-size:2rem;
+  @media screen and (max-width: 768px) {
+    margin-left:8px;
+  }
 `;
 
 export const Bars = styled(FaBars)`
