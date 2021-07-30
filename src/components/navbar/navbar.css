@@ -8,3 +8,7 @@
 #bar{
     text-align: center;
 }
+.s{
+    transform: translateX(-2px) rotate(-50deg);
+    color:rgb(255, 153, 0);
+}

@@ -28,7 +28,7 @@ function Navbar({currentUser}) {
         <div id="top">
             <Nav>
                 <NavBrand style={{color: 'yellow'}} to='/'>
-                    Unstuck
+                    Un<span class="s">s</span>tuck
                 </NavBrand>
                 <Bars onClick={toggleBar} />
                 <NavMenu>
