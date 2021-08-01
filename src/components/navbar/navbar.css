@@ -7,8 +7,12 @@
 }
 #bar{
     text-align: center;
+    z-index: 999;
 }
 .s{
     transform: translateX(-2px) rotate(-50deg);
-    color:rgb(255, 153, 0);
+    color:rgb(255, 123, 0);
+}
+NavLink{
+    color:blue;
 }

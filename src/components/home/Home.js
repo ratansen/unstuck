@@ -5,11 +5,13 @@ import './home.css';
 import Ask from '../ask/Ask';
 import Data from '../data';
 import { db } from '../../firebase/firebase.utils'
-import timeSince from '../date'
+import timeSince from '../date' ;
+import Loading from '../fragments/Loader';
 
 function Home() {
 
     var [questionData, updateQuestionData] = useState([])
+    var [loaderState, setLoaderState] = useState(true) ; 
 
 
     const fetchData = async () => db.collection('questionDB').get().then(snapshot => {
@@ -20,6 +22,7 @@ function Home() {
             updateQuestionData((prev) => {
                 return ([...prev, { id: id, questionBody: data.questionBody, askedBy: data.askedBy, postedOn: data.postedOn }])
             })
+            setLoaderState(false) ;
 
         })
     }).catch(error => console.log(error));
@@ -56,8 +59,7 @@ function Home() {
 
         <Container>
             <Heading>Top Questions</Heading>
-            {console.log("done")}
-            {toRender}
+            {loaderState ? <Loading/>: toRender}
         </Container>
     )
 }

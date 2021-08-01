@@ -4,7 +4,7 @@ export const Container=styled.div`
     background-color:#fff;
     width:70vw;
     margin:4px auto;
-    padding:10px;
+    padding:15px;
     border-radius:5px;
     min-height:95vh;
     @media screen and (max-width: 768px) {

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Heading } from '../fragments/mainLayout';
 import { db } from '../../firebase/firebase.utils';
-import timeSince from '../date' ;
-import './answer.css' ;
-import {useLocation} from 'react-router-dom' ;
+import timeSince from '../date';
+import './answer.css';
+import { useLocation } from 'react-router-dom';
+import Loading, { QuestionLoading } from '../fragments/Loader';
 
 
 
@@ -12,15 +13,16 @@ function Answer(props) {
     // window.localStorage.setItem('temp',props.location.props.id)
     // const qid = window.localStorage.getItem('temp')
     const location = useLocation()
-    const qid = location.state?.id ;
+    const qid = location.state?.id;
     // const qid = props.location.props.id;
     const [ans, setAns] = useState("");
-    const [questionData, updateQuestionData] = useState("") ;
-
+    const [questionData, updateQuestionData] = useState("");
+    const [questionLoader, setQuestionLoader] = useState(true);
     db.collection("questionDB").doc(qid)
         .get()
         .then((snapshot) => {
             updateQuestionData(snapshot.data())
+            setQuestionLoader(false);
         })
         .catch((error) => {
             console.log("Error getting documents: ", error);
@@ -29,19 +31,21 @@ function Answer(props) {
     function handleChange(event) {
         setAns(event.target.value);
         setPostText(event.target.value);
-        
+
     }
 
     function handleClick(event) {
         setPostText("")
-        db.collection("questionDB").doc(qid).collection(qid).add({ answer: ans , answeredBy: props.userName, answeredOn: Date.now()}) ;
+        db.collection("questionDB").doc(qid).collection(qid).add({ answer: ans, answeredBy: props.userName, answeredOn: Date.now() });
         updateAnswerData([])
-        fetchAns() ;
+        fetchAns();
         event.preventDefault();
     }
 
     // fetching answers
     var [answerData, updateAnswerData] = useState([])
+    var [loaderState, setLoaderState] = useState(true);
+
 
 
     const fetchAns = async () => db.collection('questionDB').doc(qid).collection(qid).get().then(snapshot => {
@@ -50,8 +54,10 @@ function Answer(props) {
             const data = doc.data();
             console.log("d.qb: ", data.answer)
             updateAnswerData((prev) => {
-                return ([...prev, { answer: data.answer, answeredBy:data.answeredBy, answeredOn: data.answeredOn }])
+                return ([...prev, { answer: data.answer, answeredBy: data.answeredBy, answeredOn: data.answeredOn }])
             })
+            setLoaderState(false);
+
 
         })
     }).catch(error => console.log(error));
@@ -60,6 +66,12 @@ function Answer(props) {
     useEffect(() => {
         fetchAns();
     }, [])
+
+    const question = () => {
+        return (<>
+        </>)
+    }
+
     const toRender =
         answerData.map((item) => {
             return (
@@ -67,15 +79,15 @@ function Answer(props) {
                 <div class="answer-box">
                     <div class="answer-top">
 
-                        <i class="fa fa-user "></i>
+                        <i class="fas fa-user-circle "></i>
                         <p class="user ">{item.answeredBy}</p>
-                        <p class="timestamp">{timeSince(item.answeredOn)} ago</p>
+                        <p class="timestamp">answered {timeSince(item.answeredOn)} ago</p>
                     </div>
                     <div class="answer-body">
-                        <p style={{whiteSpace: "pre-wrap"}}>{item.answer}</p>
+                        <p style={{ whiteSpace: "pre-wrap" }}>{item.answer}</p>
                     </div>
                     <div class="footer">
-                        
+
                     </div>
                 </div>
 
@@ -85,19 +97,22 @@ function Answer(props) {
     return (
         <Container>
             <div className="question-div">
+            {questionLoader ? <QuestionLoading/> : 
+            <>
                 <div className="question-top">
                     <i className="fa fa-user"></i>
                     <p className="user">{questionData.askedBy}</p>
-                    <p className="timestamp">{timeSince(questionData.postedOn)} ago</p>
+                    <p className="timestamp">asked {timeSince(questionData.postedOn)} ago</p>
                 </div>
                 <div class="questionBody">
                     {questionData.questionBody}
                 </div>
                 <div className="question-footer">
                 </div>
-
+            </>
+            }
             </div>
-            {toRender}
+            {loaderState ? <Loading /> : toRender}
             <div className="answer-div">
                 <div className="postAnswer-head">
                     Your Answer

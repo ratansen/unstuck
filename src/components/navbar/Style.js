@@ -20,8 +20,11 @@ export const NavLink = styled(Link)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-  &.active {
-    color: #15cdfc;
+  :active {
+    color: #FFC107;
+  }
+  :hover {
+    color: #FFC107 ;
   }
   @media screen and (max-width: 768px) {
     padding:10px;
