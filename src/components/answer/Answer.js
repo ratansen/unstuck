@@ -5,6 +5,7 @@ import timeSince from '../date';
 import './answer.css';
 import { useLocation } from 'react-router-dom';
 import Loading, { QuestionLoading } from '../fragments/Loader';
+import ReactMarkdown from 'react-markdown';
 
 
 
@@ -14,14 +15,13 @@ function Answer(props) {
     // const qid = window.localStorage.getItem('temp')
     const location = useLocation()
     const qid = location.state?.id;
-    // const qid = props.location.props.id;
     const [ans, setAns] = useState("");
     const [questionData, updateQuestionData] = useState("");
     const [questionLoader, setQuestionLoader] = useState(true);
     db.collection("questionDB").doc(qid)
         .get()
         .then((snapshot) => {
-            updateQuestionData(snapshot.data())
+            updateQuestionData(snapshot.data());
             setQuestionLoader(false);
         })
         .catch((error) => {
@@ -36,8 +36,9 @@ function Answer(props) {
     var [loaderState, setLoaderState] = useState(true);
     function handleClick(event) {
         setPostText("")
-        db.collection("questionDB").doc(qid).collection(qid).add({ answer: ans, answeredBy: props.userName, answeredOn: Date.now() });
-        updateAnswerData([]) ;
+        const thisQuestion = db.collection("questionDB").doc(qid) ;
+        thisQuestion.collection(qid).add({ answer: ans, answeredBy: props.userName, answeredOn: Date.now() });
+        updateAnswerData([]);
         setLoaderState(true);
         fetchAns();
         event.preventDefault();
@@ -45,29 +46,27 @@ function Answer(props) {
 
     // fetching answers
     var [answerData, updateAnswerData] = useState([])
-    var isEmpty=false ;
 
 
-
+    var isEmpty;
     const fetchAns = async () => db.collection('questionDB').doc(qid).collection(qid).get().then(snapshot => {
-        if(snapshot.empty){
-            isEmpty=true ;
+        console.log("snappy" ,snapshot.empty)
+        if (snapshot.empty) {
+            var isEmpty = true;
         }
         snapshot.forEach(doc => {
             const id = doc.id
             const data = doc.data();
-            console.log("d.qb: ", data.answer)
             updateAnswerData((prev) => {
                 return ([...prev, { answer: data.answer, answeredBy: data.answeredBy, answeredOn: data.answeredOn }])
             })
-            
-            
+
+
         })
 
         setLoaderState(false);
-    }).catch(error => {console.log(error); setLoaderState(false);});
-    console.log("answerData", answerData);
-
+    }).catch(error => { console.log(error); setLoaderState(false); });
+    
     useEffect(() => {
         fetchAns();
     }, [])
@@ -80,25 +79,29 @@ function Answer(props) {
     const toRender =
         answerData.map((item) => {
             return (
-                
+
                 <div class="answer-box">
-                <p>
-                { isEmpty && "<center> No answers yet </center>"}
-                </p>
-                <>
-                    <div class="answer-top">
+                    <p>
+                        
+                    </p>
+                    <>
+                        <div class="answer-top">
 
-                        <i class="fas fa-user-circle "></i>
-                        <p class="user ">{item.answeredBy}</p>
-                        <p class="timestamp">answered {timeSince(item.answeredOn)} ago</p>
-                    </div>
-                    <div class="answer-body">
-                        <p style={{ whiteSpace: "pre-wrap" }}>{item.answer}</p>
-                    </div>
-                    <div class="footer">
+                            <i class="fas fa-user-circle "></i>
+                            <p class="user ">{item.answeredBy}</p>
+                            <p class="timestamp">answered {timeSince(item.answeredOn)} ago</p>
+                        </div>
+                        <div class="answer-body">
+                            <p style={{ whiteSpace: "pre-wrap" }}>
+                                <ReactMarkdown>
+                                    {item.answer}
+                                </ReactMarkdown>
+                            </p>
+                        </div>
+                        <div class="footer">
 
-                    </div>
-                </>
+                        </div>
+                    </>
                 </div>
 
             )
@@ -107,32 +110,36 @@ function Answer(props) {
     return (
         <Container>
             <div className="question-div">
-            
-            {questionLoader ? <QuestionLoading/> : 
-            <>
-                <div className="question-top">
-                    <i className="fa fa-user"></i>
-                    <p className="user">{questionData.askedBy}</p>
-                    <p className="timestamp">asked {timeSince(questionData.postedOn)} ago</p>
-                </div>
-                <div class="questionBody">
-                    {questionData.questionBody}
-                </div>
-                <div className="question-footer">
-                </div>
-            </>
-            }
+
+                {questionLoader ? <QuestionLoading /> :
+                    <>
+                        <div className="question-top">
+                            <i className="fa fa-user"></i>
+                            <p className="user">{questionData.askedBy}</p>
+                            <p className="timestamp">asked {timeSince(questionData.postedOn)} ago</p>
+                        </div>
+                        <div class="questionBody">
+                            {questionData.questionBody}
+                        </div>
+                        <div className="question-footer">
+                        </div>
+                    </>
+                }
             </div>
             {loaderState ? <Loading /> : toRender}
-            <div className="answer-div">
-                <div className="postAnswer-head">
-                    Your Answer
-                </div>
 
-                <div className="post-div">
-                    <textarea onChange={handleChange} value={postText} className="answerpost-box" rows="10" />
-                    <button onClick={handleClick} className="post-button">Post</button>
+            <div className="answer-div">
+            <p><b>Write an answer</b></p>
+                <div>
+                    <textarea className="answerpost-box" onChange={handleChange} value={postText} placeholder="Write your answer here (you can use markdown)" rows="5" />
+                </div><br></br>
+                <p>Answer Preview</p>
+                <div className="markdown-field">
+                    <ReactMarkdown>
+                        {postText}
+                    </ReactMarkdown>
                 </div>
+                <button onClick={handleClick} className="anspost-button">Post</button>
             </div>
 
         </Container>

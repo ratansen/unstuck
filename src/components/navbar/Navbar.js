@@ -32,6 +32,9 @@ function Navbar({currentUser}) {
                 </NavBrand>
                 <Bars onClick={toggleBar} />
                 <NavMenu>
+                    <NavLink to='/' activeStyle={{color:'#ffffff'}}>
+                        Home
+                    </NavLink>
                     <NavLink to='/ask' activeStyle={{color:'#ff7600'}}>
                         Ask
                     </NavLink>
@@ -44,6 +47,9 @@ function Navbar({currentUser}) {
                 </NavMenu>
                 <NavMenuM id="bar">
                     <div onClick={collapse} className="collapse"><i className="fa fa-times" id="cancel"></i></div>
+                    <NavLink onClick={collapse} to='/' activeStyle={{color:'#FFFFFF'}}>
+                        Home
+                    </NavLink>
                     <NavLink onClick={collapse} to='/ask' activeStyle={{color:'#FFC107'}}>
                         Ask
                     </NavLink>

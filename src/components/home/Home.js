@@ -7,6 +7,8 @@ import Data from '../data';
 import { db } from '../../firebase/firebase.utils'
 import timeSince from '../date' ;
 import Loading from '../fragments/Loader';
+import ReactMarkdown from 'react-markdown';
+
 
 function Home() {
 
@@ -16,15 +18,16 @@ function Home() {
 
     const fetchData = async () => db.collection('questionDB').orderBy('postedOn','desc').get().then(snapshot => {
         snapshot.forEach(doc => {
-            const id = doc.id
+            const id = doc.id;
+
             const data = doc.data();
             console.log("d.qb: ", data.questionBody)
             updateQuestionData((prev) => {
-                return ([...prev, { id: id, questionBody: data.questionBody, askedBy: data.askedBy, postedOn: data.postedOn }])
+                return ([...prev, { id: id, questionBody: data.questionBody, askedBy: data.askedBy, postedOn: data.postedOn, answerCount : data.answerCount  }])
             })
-            setLoaderState(false) ;
-
+            
         })
+        setLoaderState(false) ;
     }).catch(error => console.log(error));
     console.log("questionData", questionData);
     useEffect(() => {
@@ -42,12 +45,18 @@ function Home() {
                         <p class="timestamp">{timeSince(item.postedOn)} ago</p>
                     </div>
                     <div class="question-body">
-                        <p style={{whiteSpace: "pre-wrap"}}>{item.questionBody}</p>
+                        <p style={{whiteSpace: "pre-wrap"}}>
+                        <ReactMarkdown>
+
+                        {item.questionBody}
+                        </ReactMarkdown>
+
+                        </p>
                     </div>
                     <div class="question-footer">
                         <Link style={{ textDecoration: "none" }} to={{ pathname: '/answer', state: { id: item.id } }}>
                             <div className="view">
-                                View
+                                Answers &nbsp; {item.answerCount}
                             </div>
                         </Link>
                     </div>

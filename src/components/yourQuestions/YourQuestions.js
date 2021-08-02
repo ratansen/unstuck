@@ -3,6 +3,8 @@ import { Container, Heading } from '../fragments/mainLayout';
 import { db, auth } from '../../firebase/firebase.utils' ;
 import timeSince from '../date';
 import Loading from '../fragments/Loader';
+import ReactMarkdown from 'react-markdown';
+
 
 function YourQuestions(props) {
     var [questionData, updateQuestionData] = useState([]) ;
@@ -16,9 +18,9 @@ function YourQuestions(props) {
             updateQuestionData((prev) => {
                 return ([...prev, { id: id, questionBody: data.questionBody, askedBy: data.askedBy, postedOn: data.postedOn }])
             })
-            setLoaderState(false) ;
-
+            
         })
+        setLoaderState(false) ;
     }).catch(error => console.log(error));
 
     useEffect(() => {
@@ -36,7 +38,10 @@ function YourQuestions(props) {
                     <p class="timestamp">asked {timeSince(item.postedOn)} ago</p>
                 </div>
                 <div class="answer-body">
-                    <p style={{ whiteSpace: "pre-wrap" }}>{item.questionBody}</p>
+                    <p style={{ whiteSpace: "pre-wrap" }}>
+                    <ReactMarkdown>{item.questionBody}</ReactMarkdown>
+                    
+                    </p>
                 </div>
                 <div class="footer">
 
