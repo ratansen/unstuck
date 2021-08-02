@@ -24,10 +24,11 @@ function Ask(props) {
         setText(event.target.value) ;
     }
     function handleAdd(event){
-        db.collection('questionDB').add({questionBody:text, askedBy:props.userName, postedOn: Date.now()})
+        db.collection('questionDB').add({questionBody:text, askedBy:props.user.displayName, postedOn: Date.now()})
+        db.collection('userDB').doc(props.user.email).collection('myQuestions').add({questionBody:text, askedBy:props.user.displayName, postedOn: Date.now()}) ;
         // const id =(Date.now()+Math.ceil(100000*Math.random()).toString()) ;
         // event.preventDefault() ;  
-        console.log("usename in ask :",props.userName)
+        console.log("usename in ask :",props.user.displayName)
      
     }
     return (
@@ -42,6 +43,9 @@ function Ask(props) {
                     <button onClick={handleAdd}>ASK</button>
                     </Link>
                 </form>
+            </div>
+            <div>
+                {text}
             </div>
         </Container>
     )

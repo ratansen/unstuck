@@ -27,13 +27,17 @@ class App extends React.Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged( user=>{
       this.setState({currentUser : user}) ;
       console.log("user: ",user.email) ;
-
+      if (user){
+        console.log("logged in") ;
+      }
+      else{
+        console.log("not logged in");
+      }
 
       username = this.state.currentUser.displayName ;
     });
-
-
   }
+
   componentWillUnmount(){
     this.unsubscribeFromAuth() ;
   }
@@ -47,10 +51,10 @@ class App extends React.Component {
             <Route path='/' exact component={Home} />
             <Route path='/signin' component={SignIn} />
 
-            <Route path='/ask'  render={this.state.currentUser ? (props) => ( <Ask {...props} userName={this.state.currentUser.displayName} /> ) : ()=><NotLoggedIn/>} />
+            <Route path='/ask'  render={this.state.currentUser ? (props) => ( <Ask {...props} user={this.state.currentUser} /> ) : ()=><NotLoggedIn/>} />
             <Route path='/tags' component={Tags} />
             <Route path='/answer' render={this.state.currentUser ?(props) => ( <Answer {...props} userName={this.state.currentUser.displayName} /> ): ()=><NotLoggedIn/>} />
-            <Route path='/yourQuestions' component={YourQuestions} />
+            <Route path='/yourQuestions' render={this.state.currentUser ? (props) => ( <YourQuestions {...props} user={this.state.currentUser} /> ) : ()=><NotLoggedIn/>} />
           </Switch>
           <Top />
         </Router>

@@ -14,7 +14,7 @@ function Home() {
     var [loaderState, setLoaderState] = useState(true) ; 
 
 
-    const fetchData = async () => db.collection('questionDB').get().then(snapshot => {
+    const fetchData = async () => db.collection('questionDB').orderBy('postedOn','desc').get().then(snapshot => {
         snapshot.forEach(doc => {
             const id = doc.id
             const data = doc.data();

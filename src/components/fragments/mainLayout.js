@@ -15,6 +15,7 @@ export const Container=styled.div`
 
 export const Heading = styled.div`
     padding:5px;
+    padding-left:10px;
     border-left:5px solid #ff7600;
     font-weight:bold;
     font-size:1.2rem;

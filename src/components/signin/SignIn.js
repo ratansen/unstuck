@@ -6,9 +6,11 @@ import './signin.css' ;
 function SignIn(){
     return(
         <div className='container'>
-        <Link style={{ textDecoration: "none" }} to='/'>
+        {/* <Link style={{ textDecoration: "none" }} to='/'> */}
         <div className='signin' onClick={signInWithGoogle}>Sign In with Google</div>
-        </Link>
+
+        {/* </Link> */}
+        
         </div>
     )
 }

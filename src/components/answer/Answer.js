@@ -33,22 +33,26 @@ function Answer(props) {
         setPostText(event.target.value);
 
     }
-
+    var [loaderState, setLoaderState] = useState(true);
     function handleClick(event) {
         setPostText("")
         db.collection("questionDB").doc(qid).collection(qid).add({ answer: ans, answeredBy: props.userName, answeredOn: Date.now() });
-        updateAnswerData([])
+        updateAnswerData([]) ;
+        setLoaderState(true);
         fetchAns();
         event.preventDefault();
     }
 
     // fetching answers
     var [answerData, updateAnswerData] = useState([])
-    var [loaderState, setLoaderState] = useState(true);
+    var isEmpty=false ;
 
 
 
     const fetchAns = async () => db.collection('questionDB').doc(qid).collection(qid).get().then(snapshot => {
+        if(snapshot.empty){
+            isEmpty=true ;
+        }
         snapshot.forEach(doc => {
             const id = doc.id
             const data = doc.data();
@@ -56,11 +60,12 @@ function Answer(props) {
             updateAnswerData((prev) => {
                 return ([...prev, { answer: data.answer, answeredBy: data.answeredBy, answeredOn: data.answeredOn }])
             })
-            setLoaderState(false);
-
-
+            
+            
         })
-    }).catch(error => console.log(error));
+
+        setLoaderState(false);
+    }).catch(error => {console.log(error); setLoaderState(false);});
     console.log("answerData", answerData);
 
     useEffect(() => {
@@ -75,8 +80,12 @@ function Answer(props) {
     const toRender =
         answerData.map((item) => {
             return (
-
+                
                 <div class="answer-box">
+                <p>
+                { isEmpty && "<center> No answers yet </center>"}
+                </p>
+                <>
                     <div class="answer-top">
 
                         <i class="fas fa-user-circle "></i>
@@ -89,6 +98,7 @@ function Answer(props) {
                     <div class="footer">
 
                     </div>
+                </>
                 </div>
 
             )
@@ -97,6 +107,7 @@ function Answer(props) {
     return (
         <Container>
             <div className="question-div">
+            
             {questionLoader ? <QuestionLoading/> : 
             <>
                 <div className="question-top">
