@@ -1,5 +1,6 @@
 .question-div{
     border: 2px solid rgb(216, 205, 205);
+    margin-bottom: 50px;
     padding:10px;
 }
 
@@ -15,7 +16,7 @@
     font-size: 23px;
     padding:0 13px 0 7px;
     margin-top: -7px; 
-    color:rgb(88, 17, 90);  
+    color:rgba(38, 7, 39, 0.616);  
 }
 
 
@@ -36,9 +37,9 @@
     /* border:2px solid rgb(31, 13, 40); */
     border-radius: 5px 5px ;
     background-color: rgb(243, 228, 187);
-    padding: 5px;
+    padding: 15px 15px 5px 15px;
     color:#000;
-    margin-top:16px;
+    margin-bottom:18px;
 }
 .answer-body{
     margin-top: 15px;

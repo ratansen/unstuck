@@ -7,7 +7,10 @@ function SignIn(){
     return(
         <div className='container'>
         <Link style={{ textDecoration: "none" }} to='/'>
-        <div className='signin' onClick={signInWithGoogle}>Sign In with Google</div>
+        <div className='signin' onClick={signInWithGoogle}>
+        <i className="fab fa-google google"></i>
+        Sign In with Google
+        </div>
 
         </Link>
         

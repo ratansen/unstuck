@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const Container=styled.div`
     background-color:#fff;
     width:70vw;
-    margin:4px auto;
+    margin:10px auto;
     padding:15px;
+    padding-top:90px;
     border-radius:5px;
     min-height:95vh;
     @media screen and (max-width: 768px) {

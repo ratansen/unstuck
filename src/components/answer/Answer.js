@@ -36,24 +36,22 @@ function Answer(props) {
     var [loaderState, setLoaderState] = useState(true);
     function handleClick(event) {
         setPostText("")
-        const thisQuestion = db.collection("questionDB").doc(qid) ;
-        thisQuestion.collection(qid).add({ answer: ans, answeredBy: props.userName, answeredOn: Date.now() });
         updateAnswerData([]);
         setLoaderState(true);
+        db.collection("questionDB").doc(qid).collection(qid).add({ answer: ans, answeredBy: props.userName, answeredOn: Date.now() });
         fetchAns();
         event.preventDefault();
     }
-
+    
     // fetching answers
     var [answerData, updateAnswerData] = useState([])
+    useEffect(() => {
+        fetchAns();
+    }, [])
 
 
     var isEmpty;
     const fetchAns = async () => db.collection('questionDB').doc(qid).collection(qid).get().then(snapshot => {
-        console.log("snappy" ,snapshot.empty)
-        if (snapshot.empty) {
-            var isEmpty = true;
-        }
         snapshot.forEach(doc => {
             const id = doc.id
             const data = doc.data();
@@ -63,18 +61,10 @@ function Answer(props) {
 
 
         })
-
         setLoaderState(false);
     }).catch(error => { console.log(error); setLoaderState(false); });
     
-    useEffect(() => {
-        fetchAns();
-    }, [])
 
-    const question = () => {
-        return (<>
-        </>)
-    }
 
     const toRender =
         answerData.map((item) => {
@@ -116,10 +106,14 @@ function Answer(props) {
                         <div className="question-top">
                             <i className="fa fa-user"></i>
                             <p className="user">{questionData.askedBy}</p>
+                            
                             <p className="timestamp">asked {timeSince(questionData.postedOn)} ago</p>
+     
                         </div>
                         <div class="questionBody">
+                        <ReactMarkdown>
                             {questionData.questionBody}
+                        </ReactMarkdown>
                         </div>
                         <div className="question-footer">
                         </div>
@@ -134,7 +128,7 @@ function Answer(props) {
                     <textarea className="answerpost-box" onChange={handleChange} value={postText} placeholder="Write your answer here (you can use markdown)" rows="5" />
                 </div><br></br>
                 <p>Answer Preview</p>
-                <div className="markdown-field">
+                <div className="markdown-field" style={{whiteSpace: "pre-wrap"}}>
                     <ReactMarkdown>
                         {postText}
                     </ReactMarkdown>

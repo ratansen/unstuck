@@ -6,13 +6,23 @@
 }
 .signin{
     font-size: 1.1rem;
-    margin:90px auto;
+    margin:150px auto;
     width:30vw;
     padding:20px 60px;
     background-color: blueviolet;
     color:#fff;
     vertical-align: middle;
     cursor:pointer;
+    box-shadow: 2px 2px 8px rgb(73, 26, 117);
+
+}
+.signin:hover{
+    box-shadow: 3px 3px 10px rgb(73, 26, 117);
+}
+.google{
+    color:#fff;
+    margin-right: 15px;
+    font-size: 1.2rem;
 }
 @media screen and (max-width: 768px) {
     .signin{

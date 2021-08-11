@@ -6,6 +6,8 @@ import timeSince from '../date'
 import { db, auth } from '../../firebase/firebase.utils'
 import { username } from '../../App';
 import ReactMarkdown from 'react-markdown';
+import 'react-tagsinput/react-tagsinput.css' ;
+import InputTag from './TagsInput'
 
 function getDay() {
     var today = new Date();
@@ -19,17 +21,19 @@ function getDay() {
 
 
 function Ask(props) {
-    const [text, setText] = useState("")
+    const [text, setText] = useState("") ;
+
+
 
     function handleChange(event) {
         setText(event.target.value);
     }
+
     function handleAdd(event) {
-        db.collection('questionDB').add({ questionBody: text, askedBy: props.user.displayName, postedOn: Date.now() })
-        db.collection('userDB').doc(props.user.email).collection('myQuestions').add({ questionBody: text, askedBy: props.user.displayName, postedOn: Date.now() });
-        // const id =(Date.now()+Math.ceil(100000*Math.random()).toString()) ;
-        // event.preventDefault() ;  
-        console.log("usename in ask :", props.user.displayName)
+        const id =(Date.now()+Math.ceil(100000*Math.random()).toString()) ;
+        db.collection('questionDB').doc(id).set({ questionBody: text, askedBy: props.user.displayName, postedOn: Date.now() })
+        db.collection('userDB').doc(props.user.email).collection('myQuestions').doc(id).set({ questionBody: text, askedBy: props.user.displayName, postedOn: Date.now() });
+        // event.preventDefault() ; 
 
     }
     return (
@@ -43,10 +47,12 @@ function Ask(props) {
 
             </div><br></br>
             <p><b>Preview</b></p>
-            <div className="markdown-field">
+            <div className="markdown-field" style={{whiteSpace: "pre-wrap"}}>
                 <ReactMarkdown>
                     {text}
                 </ReactMarkdown>
+            </div>
+            <div>
             </div>
             <Link to='/'>
                 <button className="ask-button" onClick={handleAdd}>Post</button>

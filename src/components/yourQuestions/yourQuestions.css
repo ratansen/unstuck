@@ -1,0 +1,63 @@
+.delete{
+    float: end;
+}
+.user{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.timestamp{
+    font-size: 0.7rem;
+    font-weight: 100;
+}
+
+.myQ-box{
+    /* border:2px solid rgb(31, 13, 40); */
+    border-radius: 5px 5px ;
+    background-color: rgb(243, 228, 187);
+    padding: 15px 15px 0 15px;
+    color:#000;
+    margin-top:16px;
+}
+.delete{
+    display: inline-block;
+  
+    background-color: transparent;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    margin-left: 18px;
+    font-size: 0.9rem;
+    padding:5px 10px;
+    text-decoration: none;
+    color: rgb(255, 0, 0);
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .delete:hover{
+    background-color: #ff0000;
+    color: #fff;
+    padding:7px 12px;
+    border:none;
+  }
+
+  .view-ans{
+    display: inline-block;
+  
+    background-color: transparent;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    font-size: 0.9rem;
+    padding:5px 10px;
+    text-decoration: none;
+    color: #007500;
+    border: 2px solid #007500;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .view-ans:hover{
+    background-color: #007500;
+    color: #fff;
+    padding:7px 12px;
+    border:none;
+  }
