@@ -46,15 +46,15 @@ function Navbar({currentUser}) {
                 </NavBrand>
                 <Bars onClick={toggleBar} />
                 <NavMenu>
-                    <NavLink to='/' activeStyle={{color:'#ffffff'}}>
+                    <NavLink to='/' exact={true} activeStyle={{color:'#ffffff'}}>
                         HOME
                     </NavLink>
                     <NavLink to='/ask' activeStyle={{color:'#ffffff'}}>
                         ASK
                     </NavLink>
-                    <NavLink to='/tags' activeStyle={{color:'#ffffff'}}>
+                    {/* <NavLink to='/tags' activeStyle={{color:'#ffffff'}}>
                         TAGS
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink to='/yourQuestions' activeStyle={{color:'#ffffff'}}>
                         MY STUFF
                     </NavLink>
@@ -67,9 +67,9 @@ function Navbar({currentUser}) {
                     <NavLink onClick={collapse} to='/ask' activeStyle={{color:'#FFC107'}}>
                         ASK
                     </NavLink>
-                    <NavLink onClick={collapse} to='/tags' activeStyle={{color:'#FFC107'}}>
+                    {/* <NavLink onClick={collapse} to='/tags' activeStyle={{color:'#FFC107'}}>
                         TAGS
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink onClick={collapse} to='/yourQuestions' activeStyle={{color:'#FFC107'}}>
                         MY STUFF
                     </NavLink>

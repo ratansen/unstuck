@@ -6,6 +6,7 @@ import './answer.css';
 import { useLocation } from 'react-router-dom';
 import Loading, { QuestionLoading } from '../fragments/Loader';
 import ReactMarkdown from 'react-markdown';
+import {Link} from 'react-router-dom' ;
 
 
 
@@ -49,8 +50,6 @@ function Answer(props) {
         fetchAns();
     }, [])
 
-
-    var isEmpty;
     const fetchAns = async () => db.collection('questionDB').doc(qid).collection(qid).get().then(snapshot => {
         snapshot.forEach(doc => {
             const id = doc.id
@@ -133,7 +132,10 @@ function Answer(props) {
                         {postText}
                     </ReactMarkdown>
                 </div>
-                <button onClick={handleClick} className="anspost-button">Post</button>
+                
+            <Link style={{ textDecoration: "none" }} to={{ pathname: '/answer', state: { id: qid } }}>
+            <button onClick={handleClick} className="anspost-button">Post</button>
+            </Link>
             </div>
 
         </Container>
