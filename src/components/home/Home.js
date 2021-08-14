@@ -21,7 +21,7 @@ function Home() {
             const id = doc.id;
 
             const data = doc.data();
-            console.log("d.qb: ", data.questionBody)
+            // console.log("d.qb: ", data.questionBody)
             updateQuestionData((prev) => {
                 return ([...prev, { id: id, questionBody: data.questionBody, askedBy: data.askedBy, postedOn: data.postedOn, answerCount : data.answerCount  }])
             })
@@ -29,7 +29,7 @@ function Home() {
         })
         setLoaderState(false) ;
     }).catch(error => console.log(error));
-    console.log("questionData", questionData);
+    // console.log("questionData", questionData);
     useEffect(() => {
         fetchData();
     }, [])

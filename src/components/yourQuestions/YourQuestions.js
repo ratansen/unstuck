@@ -16,7 +16,7 @@ function YourQuestions(props) {
         snapshot.forEach(doc => {
             const id = doc.id
             const data = doc.data();
-            console.log("d.qb: ", data.questionBody)
+            // console.log("d.qb: ", data.questionBody)
             updateQuestionData((prev) => {
                 return ([...prev, { id: id, questionBody: data.questionBody, askedBy: data.askedBy, postedOn: data.postedOn }])
             })

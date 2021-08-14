@@ -15,7 +15,7 @@ import {
 import './navbar.css'
 
 var width = window.matchMedia("(min-width: 768px)") ;
-console.log("width",width.matches) ;
+// console.log("width",width.matches) ;
 
 function Navbar({currentUser}) {
     function toggleBar(){
