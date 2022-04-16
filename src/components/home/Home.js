@@ -54,9 +54,9 @@ function Home() {
                         </p>
                     </div>
                     <div class="question-footer">
-                        <Link style={{ textDecoration: "none" }} to={{ pathname: '/answer', state: { id: item.id } }}>
+                        <Link style={{ textDecoration: "none" }} to={{ pathname: '/answer', state: { id: item.id, answerCount: item.answerCount } }}>
                             <div className="view">
-                            <i class="far fa-comments-alt" style={{fontSize:"0.9rem"}}></i> Answers 
+                            <i class="far fa-comments-alt" style={{fontSize:"0.9rem"}}></i> Answers ({item.answerCount})
                             </div>
                         </Link>
                     </div>

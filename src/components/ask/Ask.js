@@ -31,8 +31,8 @@ function Ask(props) {
 
     function handleAdd(event) {
         const id =(Date.now()+Math.ceil(100000*Math.random()).toString()) ;
-        db.collection('questionDB').doc(id).set({ questionBody: text, askedBy: props.user.displayName, postedOn: Date.now() })
-        db.collection('userDB').doc(props.user.email).collection('myQuestions').doc(id).set({ questionBody: text, askedBy: props.user.displayName, postedOn: Date.now() });
+        db.collection('questionDB').doc(id).set({ questionBody: text, askedBy: props.user.displayName, postedOn: Date.now(), answerCount: 0 })
+        db.collection('userDB').doc(props.user.email).collection('myQuestions').doc(id).set({ questionBody: text, askedBy: props.user.displayName, postedOn: Date.now(), answerCount: 0 });
         // event.preventDefault() ; 
 
     }

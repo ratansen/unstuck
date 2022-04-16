@@ -16,6 +16,7 @@ function Answer(props) {
     // const qid = window.localStorage.getItem('temp')
     const location = useLocation()
     const qid = location.state?.id;
+    let answerCount = location.state?.answerCount;
     const [ans, setAns] = useState("");
     const [questionData, updateQuestionData] = useState("");
     const [questionLoader, setQuestionLoader] = useState(true);
@@ -39,7 +40,9 @@ function Answer(props) {
         setPostText("")
         updateAnswerData([]);
         setLoaderState(true);
+        answerCount++;
         db.collection("questionDB").doc(qid).collection(qid).add({ answer: ans, answeredBy: props.userName, answeredOn: Date.now() });
+        db.collection("questionDB").doc(qid).update({answerCount: answerCount});
         fetchAns();
         event.preventDefault();
     }
